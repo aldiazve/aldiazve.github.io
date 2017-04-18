@@ -403,7 +403,7 @@ function getHousesMarkersFromJson( lib ){
 	 	};
 	});
 	//get the rent 
-	//ZillowLibrary.getRentPriceZillow(housesMarkersList, housesMarkersListWithRentPrice);
+	ZillowLibrary.getRentPriceZillow(housesMarkersList, housesMarkersListWithRentPrice);
 };
 
 //create and store a marker object for each data object on the json
@@ -468,10 +468,9 @@ function showHouseInfoWindow(){
 	infowindow.setContent(
 							"Property name: " + this.title + '<br /> ' +
 							"Address: " + this.address + '<br /> ' +
-							"Community Area: " + this.communityArea + '<br /> '
-							
+							"Community Area: " + this.communityArea + '<br /> ' +
+							"Estimated rent price: $" + this.rentZestimate
 						);
-	//"Estimated rent price: $" + this.rentZestimate
 	infowindow.open(this.map, this);
 	console.log(this.getPosition().lat());
 	console.log(this.getPosition().lng());
@@ -526,7 +525,7 @@ function setMarkersOnMap( markersCategory, toggle, distance ) {
 
 //draw the houses markers that are on the selected distance from the university
 function drawMarkerHouses( distance ){
-	$.each(housesMarkersList, ( posIndex, marker ) => {
+	$.each(housesMarkersListWithRentPrice, ( posIndex, marker ) => {
 		//erase every marker
 		marker.setMap(null);
 		var latLng = new google.maps.LatLng({lat: marker.getPosition().lat(), lng: marker.getPosition().lng()});
