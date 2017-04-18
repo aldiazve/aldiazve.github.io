@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Adding Boostrap-->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Adding main.css-->
+	<link rel="stylesheet" href="css/main.css">
+
+	<title>Traveler Student Helper Tools</title>
+</head>
+<body>
+	<!-- Full app container -->
+	<div class="container-fluid">
+		<!-- Title row -->	
+		<div class="row">
+			<div class="col-md-12 text-center" id="mainTitleDiv">
+				<h1>Traveler Student Helper Tools</h1>
+			</div>
+		</div>
+		<!-- Title row end-->
+		<!-- Google Map row -->
+		<div class="row">
+			<div class="col-md-3 map-container">
+				<div id="mapSearchFiltersDiv">
+					<div class="row">
+						<div class="col-md-12 text-center filters-title-div">
+							<h3>Basic Filters</h3>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8 text-center">
+							<label id="distanceFromUniversityLabel">
+								Distance from University of Illinois	
+							</label>
+						</div>
+						<div class="col-md-3 text-center">
+							<select id="distanceFromUniversitySelector">
+							  <option value="2000" selected>2 Km.</option> 
+							  <option value="3000">3 Km.</option>
+							  <option value="4000">4 Km.</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 text-center filters-title-div">
+							<h3>Aditional Filters</h3>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 aditional-filters-div">
+							<input type="checkbox" id="inputShowLibraries" value="libraries">
+							<label>Show libraries</label>	
+						</div>
+						<!--
+						<div class="col-md-12  aditional-filters-div">
+							<input type="checkbox" id="inputShowParks" value="houses">
+							<label>Show Parks</label>
+						</div>
+						-->
+						<div class="col-md-12  aditional-filters-div">
+							<input type="checkbox" id="inputShowPoliceStations" value="policeStations">
+							<label>Show Police Stations</label>	
+						</div>
+						<div class="col-md-12  aditional-filters-div">
+							<input type="checkbox" id="inputShowFireStations" value="FireStations">
+							<label>Show Fire Stations</label>	
+						</div>
+					</div>
+					<!--
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<button class="filter-button" id="policeStationButton">
+								<p>Show all police stations</p>	
+							</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<button class="filter-button" id="fireStatiosButton">
+								<p>Show all fire stations</p>	
+							</button>
+						</div>
+					</div>
+					-->
+				</div>
+			</div>
+			<div class="col-md-9 map-container">
+				<div id="mapDiv"></div>
+			</div>
+		</div>
+		<!-- Google Map row end-->
+		<!-- Marker Button row -->
+		
+		<!-- Marker Button row end-->
+	</div>
+	<!-- Full app container end-->
+
+  	<!-- Adding custom JavaScript Files-->
+	<script type="text/javascript" src="js/bundle.js"></script>
+	<!-- Adding Google Map-->
+	<script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwWYDB9v1MopiTtPpUXMDaCwAlOQbtn3c&libraries=geometry&callback=main.onGoogleMapResponse">
+    </script>
+</body>
+</html>

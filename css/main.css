@@ -1,0 +1,121 @@
+/* Fonts faces */
+@font-face {
+    font-family: 'MullerRegular'; /*a name to be used later*/
+    src: url('fonts/Muller-Regular.otf'); /*URL to font*/
+}
+
+@font-face {
+    font-family: 'MullerRegularItalic'; /*a name to be used later*/
+    src: url('fonts/Muller-RegularItalic.otf'); /*URL to font*/
+}
+
+@font-face {
+    font-family: 'MullerThin'; /*a name to be used later*/
+    src: url('fonts/Muller-Thin.otf'); /*URL to font*/
+}
+
+@font-face {
+    font-family: 'MullerThinItalic'; /*a name to be used later*/
+    src: url('fonts/Muller-ThinItalic.otf'); /*URL to font*/
+}
+
+/*
+
+Color themeplates hex: 
+BackgroundA : #475F78;
+BackgroundB : #487C70;
+normal-state : #84B1D9;
+highlightedA/pressedA: #193859;
+highlightedB/pressedB: #52734A;
+
+BackgroundA : #D8C1A8;
+BackgroundB : #51655F;
+normal-state : #4D4337;
+highlightedA/pressedA: #193859;
+highlightedB/pressedB: #52734A;
+
+*/
+
+body {
+	font-family: 'MullerThin';
+}
+
+/*Title css*/
+
+#mainTitleDiv {
+	height: 70px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	line-height : 70px;
+	background-color: #51655F;
+}
+
+h1 {
+	color : white;
+}
+
+.filters-title-div{
+	margin-bottom: 20px;
+}
+
+#distanceFromUniversitySelector{
+	color: black;
+}
+/* Filter box css*/
+
+#mapSearchFiltersDiv {
+	color: white;
+	background-color: #51655F;
+	height: 500px;
+}
+
+/* Filter box css - end*/
+
+/*Map container css*/
+.map-container{
+	color : black;
+	height: 500px;
+}
+
+#mapDiv {
+	height: 100%;
+}
+/*Map container css - end*/
+
+/*Filter title css*/
+.aditional-filters-div { 
+	padding-left : 40px;
+}
+
+.filter-button {
+    height: 30px;
+    width: 80%;
+    text-align: center;
+    color: white;
+    line-height: 28px;
+    background-color: #4D4337;
+    border: none;
+    border-radius: 20px;
+    transition: color 300ms ease;
+}
+
+.filter-button:hover {
+    color: lightgreen;
+}
+
+.filter-button:active {
+    color: black;
+}
+
+/*
+	css rules order
+
+	1 - display rules.
+	2 - flex box.
+	3 - posicionamiento.
+	4 - tamaño width height.
+	5 - ubicación (margin, top, left bla bla bla, pading).
+	6 - texto (font, color, line-high, etc).
+	7 - elemente styling (borders, color, background, decorations).
+	8 - transicions and transformation.
+*/
