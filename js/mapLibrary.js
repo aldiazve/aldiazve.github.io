@@ -10,7 +10,9 @@ const UNIVERSITY_MARKER_ICON = "img/universityIcon.png";
 const INDEX_OF_LOCALIZATION_ARRAY_LIBRARIES = 18;
 const INDEX_OF_LAT_LIBRARIES = 1;
 const INDEX_OF_LNG_LIBRARIES = 2;
-const INDER_OF_LIBRARY_NAME = 8;
+const INDEX_OF_LIBRARY_NAME = 8;
+const INDEX_OF_HOURS_OF_OPERATION = 9;
+const INDEX_OF_LIBRARY_ADDRESS = 12;
 //-- Libraries dataset constants --//
 //-- Houses dataset constants --//
 
@@ -54,13 +56,19 @@ var googleMapsClient = require('@google/maps').createClient({
 
 //-- Google map instance --/
 var map;
+//-- inuversity google Latlng variable --//
+var universityLatLng;
 //-- markersLists --//
 var librariesMarkersList = [];
 var housesMarkersList = [];
+var housesMarkersListWithRentPrice = [];
 var policeStationsMarkersList = [];
 var fireStationsMarkersList = [];
 //-- infoWindow variable --//
 var infowindow;
+//-- directions services variables --//
+var directionsService;
+var directionsDisplay ;
 //--------- basic dependensies ---------//
 var $ = require("jquery");
 var DatasetLibrary = require("./datasetLibrary");
@@ -76,6 +84,11 @@ function initGoogleMap() {
 	infowindow = new google.maps.InfoWindow({
 		content: null
 	});
+	//init directions variables
+	directionsService = new google.maps.DirectionsService();
+	directionsDisplay = new google.maps.DirectionsRenderer();
+	directionsDisplay.setMap(map);
+	universityLatLng = new google.maps.LatLng({lat: 41.870808, lng: -87.650390});
 	//init datasets
 	DatasetLibrary.initDataSets();
 	//Adding the DCS_UI_MARKER to the map
@@ -133,9 +146,11 @@ function getLibrariesMarkersFromJson( lib ){
 		var distanceFromUniversity = google.maps.geometry.spherical.computeDistanceBetween(latLng, universityLatLng);
 		if (distanceFromUniversity < 6000){
 			var marker = new google.maps.Marker({
-			position: latLng,
-			title: position[INDER_OF_LIBRARY_NAME],
-			icon : LIBRARIES_MARKER_ICON,
+				position: latLng,
+				title: position[INDEX_OF_LIBRARY_NAME],
+				icon : LIBRARIES_MARKER_ICON,
+				hoursOfOperation : position[INDEX_OF_HOURS_OF_OPERATION],
+				address : position[INDEX_OF_LIBRARY_ADDRESS]
 			});	
 			marker.addListener('click', showLibraryInfo);
 			//Storing each market into an array.
@@ -166,7 +181,7 @@ function getHousesMarkersFromJson( lib ){
 	 	};
 	});
 	//get the rent 
-	//ZillowLibrary.getRentPriceZillow(housesMarkersList);
+	//ZillowLibrary.getRentPriceZillow(housesMarkersList, housesMarkersListWithRentPrice);
 };
 
 //create and store a marker object for each data object on the json
@@ -219,7 +234,11 @@ function showUniversityInfoWindow(){
 }
 //display an infoWindow when any library marker is pressed. 
 function showLibraryInfo(){
-	infowindow.setContent(this.title);
+	infowindow.setContent(
+							"Library name: " + this.title + '<br /> ' +
+							"Address: " + this.address + '<br /> ' +
+							"Hours of operation: " + this.hoursOfOperation 
+						);
 	infowindow.open(this.map, this);
 };
 //display an infoWindow when any house marker is pressed. 
@@ -227,9 +246,14 @@ function showHouseInfoWindow(){
 	infowindow.setContent(
 							"Property name: " + this.title + '<br /> ' +
 							"Address: " + this.address + '<br /> ' +
-							"Community Area: " + this.communityArea 
+							"Community Area: " + this.communityArea + '<br /> '
+							
 						);
+	//"Estimated rent price: $" + this.rentZestimate
 	infowindow.open(this.map, this);
+	console.log(this.getPosition().lat());
+	console.log(this.getPosition().lng());
+	getRoute(this.getPosition().lat(), this.getPosition().lng());
 };
 //display an infoWindow when any police station marker is pressed. 
 function showPoliceStationInfoWindow(){
@@ -280,14 +304,12 @@ function setMarkersOnMap( markersCategory, toggle, distance ) {
 
 //draw the houses markers that are on the selected distance from the university
 function drawMarkerHouses( distance ){
-	var universityLatLng = new google.maps.LatLng({lat: 41.870808, lng: -87.650390});
 	$.each(housesMarkersList, ( posIndex, marker ) => {
 		//erase every marker
 		marker.setMap(null);
 		var latLng = new google.maps.LatLng({lat: marker.getPosition().lat(), lng: marker.getPosition().lng()});
 		//if the distance between the house and the university is less than distance, its drawed.
 		var distanceFromUniversity = google.maps.geometry.spherical.computeDistanceBetween(latLng, universityLatLng);
-		console.log(distanceFromUniversity);
 		if (distanceFromUniversity < distance){
 			marker.setMap(map);
 		};
@@ -302,23 +324,22 @@ function removeAllMarkersFromList( markerList ) {
 }
 
 //draw on the map the route between two points.
-function getRoute( pointA, pointB, travelMode){
-	var directionsService = new google.maps.DirectionsService();
-	var directionsDisplay = new google.maps.DirectionsRenderer();
-	directionsDisplay.setMap(map);
+function getRoute( pointLat, pointLng){
+	var ll = new google.maps.LatLng({lat: 41.8822718277, lng: 87.66598097669998});
 	var request = {
-	    origin: [pointA],
-	    destination: [pointB],
+	    origin: ll,
+	    destination: universityLatLng,
 	    travelMode: 'TRANSIT',
 	    transitOptions: {
-		    modes: [travelMode]
+		    modes: ['BUS']
 		},
 		unitSystem: google.maps.UnitSystem.IMPERIAL
   	};
 	directionsService.route(request, function(result, status) {
-    if (status == 'OK') {
-      directionsDisplay.setDirections(result);
-    }
+		console.log(status);
+	    if (status == 'OK') {
+	      directionsDisplay.setDirections(result);
+	    }
   });
 }
 

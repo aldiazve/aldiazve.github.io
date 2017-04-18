@@ -39,7 +39,7 @@ function getZillowData() {
 	});
 };
 
-function getRentPriceZillow( housesMarkersList ) {
+function getRentPriceZillow( housesMarkersList, housesMarkersListWithRentPrice ) {
 	var aux = 0;
 	$.each( housesMarkersList, ( posIndex, marker ) => {
 		var composedURL = GET_SEARCH_RESULTS_URL + ZILLOW_ID + ADDRESS_PARAMETER + marker.address + CITY_AND_ZIP_PARAMETER + RENT_ZESTIMATE_PARAMETER;
@@ -48,15 +48,12 @@ function getRentPriceZillow( housesMarkersList ) {
 			var parsing = xmlParser(response);
 			//0 = Request successfully processed, != 0, error
 			var errorCode = parsing.root.children[1].children[1].content;
-			console.log(parsing);
 			if (errorCode == 0){
 				//rent 'explore' de xml response to reach the rent value.
 				var rent = parsing.root.children[2].children[0].children[0].children[4].children[0].content;
 				marker.rentZestimate = rent;
 				aux++;
-				console.log(aux);
-			}else{
-				housesMarkersList.splice(posIndex, 1);
+				housesMarkersListWithRentPrice.push(marker);
 			}
 		} , "text").fail( ( response, status, error ) => {
 			// errors:
