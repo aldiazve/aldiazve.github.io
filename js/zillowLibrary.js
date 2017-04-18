@@ -2,7 +2,7 @@
 
 //------------- Constants ----------------//
 
-const GET_SEARCH_RESULTS_URL = "http://www.zillow.com/webservice/GetSearchResults.htm";
+const GET_SEARCH_RESULTS_URL = "https://www.zillow.com/webservice/GetSearchResults.htm";
 const CITY_AND_ZIP_PARAMETER = "&citystatezip=Chicago, IL";
 const ZILLOW_ID = "?zws-id=X1-ZWz1fqj9h907wr_4g4th";
 const ADDRESS_PARAMETER = "&address=";
