@@ -1,9 +1,8 @@
-
-var map, DCS_UI_MARKER, infowindow;
 var areLibrariesDrawed = false;
 var areHousesDrawed = false;
 var arePoliceStationsDrawed = false;
 var areFireStationsDrawed = false;
+var isCrimeMapDrawed = false;
 //--------- basic dependensies ---------//
 var $ = require("jquery");
 var MapLibrary = require("./mapLibrary");
@@ -75,6 +74,22 @@ function toggleBounce(marker) {
 	}
 }
 
+//This func toggle the Google map to the crime map and reverse
+function toggleMaps(){
+	console.log(isCrimeMapDrawed);
+	if (isCrimeMapDrawed){
+		$("#crimeMap").hide(400);
+		$("#mapDiv").show(400);
+		$("#showCrimeMapButton").text("Show Crime map");
+		isCrimeMapDrawed = false;
+	}else{
+		$("#crimeMap").show(400);
+		$("#mapDiv").hide(400);
+		$("#showCrimeMapButton").text("Hide Crime map");
+		isCrimeMapDrawed = true;
+	}
+}
+
 
 // main global function
 
@@ -84,6 +99,7 @@ main.showLibrariesButtonClicked = showLibrariesButtonClicked;
 main.housesDistanceSelectorChange = housesDistanceSelectorChange;
 main.showPoliceStationsButtonClicked = showPoliceStationsButtonClicked;
 main.showFireStationsButtonClicked = showFireStationsButtonClicked;
+main.toggleMaps = toggleMaps;
 
 window.main =  main;
 
@@ -94,5 +110,6 @@ $(document).ready( () => {
 	$("#distanceFromUniversitySelector").on("change", main.housesDistanceSelectorChange);
 	$("#inputShowPoliceStations").on("change", main.showPoliceStationsButtonClicked);
 	$("#inputShowFireStations").on("change", main.showFireStationsButtonClicked);
-	WeatherLibrary.askForWeather();
+	$("#showCrimeMapButton").on("click", main.toggleMaps);
+
 })

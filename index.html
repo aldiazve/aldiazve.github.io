@@ -37,7 +37,8 @@
 						</div>
 						<div class="col-md-3 text-center">
 							<select id="distanceFromUniversitySelector">
-							  <option value="2000" selected>2 Km.</option> 
+							  <option value="0" selected>---</option> 
+							  <option value="2000">2 Km.</option> 
 							  <option value="3000">3 Km.</option>
 							  <option value="4000">4 Km.</option>
 							</select>
@@ -49,16 +50,15 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-md-12  aditional-filters-div">
+							<button id="showCrimeMapButton">
+								Show Crime map
+							</button>	
+						</div>
 						<div class="col-md-12 aditional-filters-div">
 							<input type="checkbox" id="inputShowLibraries" value="libraries">
 							<label>Show libraries</label>	
 						</div>
-						<!--
-						<div class="col-md-12  aditional-filters-div">
-							<input type="checkbox" id="inputShowParks" value="houses">
-							<label>Show Parks</label>
-						</div>
-						-->
 						<div class="col-md-12  aditional-filters-div">
 							<input type="checkbox" id="inputShowPoliceStations" value="policeStations">
 							<label>Show Police Stations</label>	
@@ -88,6 +88,12 @@
 			</div>
 			<div class="col-md-9 map-container">
 				<div id="mapDiv"></div>
+				<div id="crimeMap">
+					<div id="embedMapDiv"><iframe width="100%" height="95%" title="Crimes - Map" src="https://data.cityofchicago.org/w/dfnk-7re6/3q3f-6823?cur=OQRuiYRx6iC&from=root" frameborder="0"scrolling="no"><a href="https://data.cityofchicago.org/Public-Safety/Crimes-Map/dfnk-7re6" title="Crimes - Map" target="_blank">Crimes - Map</a></iframe><p><a href="http://www.socrata.com/" target="_blank">Powered by Socrata</a></p>
+				</div>
+			</div>
+			<div class="row">
+				
 			</div>
 		</div>
 		<!-- Google Map row end-->
