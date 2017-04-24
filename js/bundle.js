@@ -306,11 +306,12 @@ function initGoogleMap() {
 	infowindow = new google.maps.InfoWindow({
 		content: null
 	});
+	
+	universityLatLng = new google.maps.LatLng({lat: 41.870808, lng: -87.650390});
 	//init directions variables
 	directionsService = new google.maps.DirectionsService();
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	directionsDisplay.setMap(map);
-	universityLatLng = new google.maps.LatLng({lat: 41.870808, lng: -87.650390});
 	//init datasets
 	DatasetLibrary.initDataSets();
 	//Adding the DCS_UI_MARKER to the map
@@ -545,11 +546,12 @@ function removeAllMarkersFromList( markerList ) {
 }
 
 //draw on the map the route between two points.
-function getRoute( pointLat, pointLng){
-	var ll = new google.maps.LatLng({lat: 41.8822718277, lng: 87.66598097669998});
+function getRoute(pointLat, pointLng){
+	var originPoint = new google.maps.LatLng({lat: pointLat, lng: pointLng});
+	var universityPosition = new google.maps.LatLng({lat: 41.870808, lng: -87.650390});
 	var request = {
-	    origin: ll,
-	    destination: universityLatLng,
+	    origin: originPoint,
+	    destination: universityPosition,
 	    travelMode: 'TRANSIT',
 	    transitOptions: {
 		    modes: ['BUS']
@@ -577,7 +579,7 @@ module.exports.getMarkersFromDataset = getMarkersFromDataset;
 
 //------------- Constants ----------------//
 
-const GET_SEARCH_RESULTS_URL = "http://www.zillow.com/webservice/GetSearchResults.htm";
+const GET_SEARCH_RESULTS_URL = "https://www.zillow.com/webservice/GetSearchResults.htm";
 const CITY_AND_ZIP_PARAMETER = "&citystatezip=Chicago, IL";
 const ZILLOW_ID = "?zws-id=X1-ZWz1fqj9h907wr_4g4th";
 const ADDRESS_PARAMETER = "&address=";
