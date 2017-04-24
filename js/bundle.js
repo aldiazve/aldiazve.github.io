@@ -233,7 +233,6 @@ $(document).ready( () => {
 	$("#inputShowPoliceStations").on("change", main.showPoliceStationsButtonClicked);
 	$("#inputShowFireStations").on("change", main.showFireStationsButtonClicked);
 	$("#showCrimeMapButton").on("click", main.toggleMaps);
-
 })
 
 },{"./climateDataLibrary":1,"./datasetLibrary":2,"./mapLibrary":4,"./zillowLibrary":5,"jquery":27}],4:[function(require,module,exports){

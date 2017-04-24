@@ -111,5 +111,4 @@ $(document).ready( () => {
 	$("#inputShowPoliceStations").on("change", main.showPoliceStationsButtonClicked);
 	$("#inputShowFireStations").on("change", main.showFireStationsButtonClicked);
 	$("#showCrimeMapButton").on("click", main.toggleMaps);
-
 })
